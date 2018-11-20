@@ -22,6 +22,7 @@ import com.graphhopper.GHResponse;
 import com.graphhopper.PathWrapper;
 import com.graphhopper.routing.*;
 import com.graphhopper.routing.util.*;
+import com.graphhopper.routing.weighting.FastestWeighting;
 import com.graphhopper.storage.index.LocationIndex;
 import com.graphhopper.storage.index.QueryResult;
 import com.graphhopper.util.EdgeIteratorState;
@@ -48,6 +49,7 @@ public class ViaRoutingTemplate extends AbstractRoutingTemplate implements Routi
     protected final EncodingManager encodingManager;
     // result from route
     protected List<Path> pathList;
+    protected List<Path> pathList2;
 
     public ViaRoutingTemplate(GHRequest ghRequest, GHResponse ghRsp, LocationIndex locationIndex, EncodingManager encodingManager) {
         this.locationIndex = locationIndex;
@@ -79,12 +81,10 @@ public class ViaRoutingTemplate extends AbstractRoutingTemplate implements Routi
         return queryResults;
     }
 
-    @Override
-    public List<Path> calcPaths(QueryGraph queryGraph, RoutingAlgorithmFactory algoFactory, AlgorithmOptions algoOpts) {
+    void calcPath(QueryGraph queryGraph, RoutingAlgorithmFactory algoFactory, AlgorithmOptions algoOpts, List<Path> singlePathList) {
         long visitedNodesSum = 0L;
         boolean viaTurnPenalty = ghRequest.getHints().getBool(Routing.PASS_THROUGH, false);
         int pointCounts = ghRequest.getPoints().size();
-        pathList = new ArrayList<>(pointCounts - 1);
         QueryResult fromQResult = queryResults.get(0);
         StopWatch sw;
         for (int placeIndex = 1; placeIndex < pointCounts; placeIndex++) {
@@ -93,7 +93,7 @@ public class ViaRoutingTemplate extends AbstractRoutingTemplate implements Routi
                 queryGraph.enforceHeading(fromQResult.getClosestNode(), ghRequest.getFavoredHeading(0), false);
             } else if (viaTurnPenalty) {
                 // enforce straight start after via stop
-                Path prevRoute = pathList.get(placeIndex - 2);
+                Path prevRoute = singlePathList.get(placeIndex - 2);
                 if (prevRoute.getEdgeCount() > 0) {
                     EdgeIteratorState incomingVirtualEdge = prevRoute.getFinalEdge();
                     queryGraph.unfavorVirtualEdgePair(fromQResult.getClosestNode(), incomingVirtualEdge.getEdge());
@@ -122,7 +122,7 @@ public class ViaRoutingTemplate extends AbstractRoutingTemplate implements Routi
                 if (path.getTime() < 0)
                     throw new RuntimeException("Time was negative " + path.getTime() + " for index " + idx + ". Please report as bug and include:" + ghRequest);
 
-                pathList.add(path);
+                singlePathList.add(path);
                 debug += ", " + path.getDebugInfo();
                 idx++;
             }
@@ -142,6 +142,17 @@ public class ViaRoutingTemplate extends AbstractRoutingTemplate implements Routi
 
         ghResponse.getHints().put("visited_nodes.sum", visitedNodesSum);
         ghResponse.getHints().put("visited_nodes.average", (float) visitedNodesSum / (pointCounts - 1));
+    }
+
+    @Override
+    public List<Path> calcPaths(QueryGraph queryGraph, RoutingAlgorithmFactory algoFactory, AlgorithmOptions algoOpts) {
+
+        calcPath(queryGraph, algoFactory, algoOpts, pathList = new ArrayList<>());
+
+        pathList2 = null;
+        if (!algoOpts.getWeighting().getName().equals("fastest"))
+            calcPath(queryGraph, algoFactory,
+                    AlgorithmOptions.start(algoOpts).weighting(new FastestWeighting(algoOpts.getWeighting().getFlagEncoder())).build(), pathList2 = new ArrayList<>());
 
         return pathList;
     }
@@ -154,6 +165,13 @@ public class ViaRoutingTemplate extends AbstractRoutingTemplate implements Routi
         altResponse.setWaypoints(getWaypoints());
         ghResponse.add(altResponse);
         pathMerger.doWork(altResponse, pathList, encodingManager, tr);
+
+        if (pathList2 != null) {
+            PathWrapper altResponse2 = new PathWrapper();
+            altResponse2.setWaypoints(getWaypoints());
+            ghResponse.add(altResponse2);
+            pathMerger.doWork(altResponse2, pathList2, encodingManager, tr);
+        }
         return true;
     }
 
