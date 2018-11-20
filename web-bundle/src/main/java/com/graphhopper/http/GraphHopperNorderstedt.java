@@ -45,6 +45,7 @@ public class GraphHopperNorderstedt extends GraphHopperOSM {
         builder.add(litEnc = new IntEncodedValue("lit", 6, 0, false));
         builder.add(crashEnc = new IntEncodedValue("crash", 6, 0, false));
         builder.add(new FootFlagEncoder());
+        builder.add(new BikeFlagEncoder());
         setEncodingManager(builder.build());
     }
 
