@@ -27,9 +27,11 @@ public class GraphHopperNorderstedt extends GraphHopperOSM {
 
     private final String litLocation;
     private final String treeLocation;
+    private final String crashLocation;
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final IntEncodedValue litEnc;
     private final IntEncodedValue treeEnc;
+    private final IntEncodedValue crashEnc;
     private final ObjectMapper mapper = Jackson.newObjectMapper();
 
     public GraphHopperNorderstedt(CmdArgs args) {
@@ -37,9 +39,11 @@ public class GraphHopperNorderstedt extends GraphHopperOSM {
 
         litLocation = args.get("lit.location", "");
         treeLocation = args.get("tree.location", "");
+        crashLocation = args.get("crash.location", "");
         EncodingManager.Builder builder = new EncodingManager.Builder(8);
         builder.add(treeEnc = new IntEncodedValue("tree", 9, 0, false));
         builder.add(litEnc = new IntEncodedValue("lit", 6, 0, false));
+        builder.add(crashEnc = new IntEncodedValue("crash", 6, 0, false));
         builder.add(new FootFlagEncoder());
         setEncodingManager(builder.build());
     }
@@ -57,6 +61,7 @@ public class GraphHopperNorderstedt extends GraphHopperOSM {
         // DO CSV import
         initLocationIndex();
 
+        importFile("crashes", new File(crashLocation), crashEnc);
         importFile("trees", new File(treeLocation), treeEnc);
         importFile("lits", new File(litLocation), litEnc);
 
@@ -75,15 +80,21 @@ public class GraphHopperNorderstedt extends GraphHopperOSM {
         LocationIndex index = getLocationIndex();
         try {
             JsonFeatureCollection coll = mapper.readValue(file, JsonFeatureCollection.class);
+            int invalid = 0;
             for (JsonFeature feature : coll.getFeatures()) {
                 Coordinate coord = feature.getGeometry().getCoordinate();
                 QueryResult qr = index.findClosest(coord.y, coord.x, EdgeFilter.ALL_EDGES);
+                // skip items too far away from the city
+                if (qr.getQueryDistance() > 20) {
+                    invalid++;
+                    continue;
+                }
                 EdgeIteratorState edge = qr.getClosestEdge();
                 // default is zero
                 edge.set(enc, edge.get(enc) + 1);
             }
             props.put(storageKey, "done").flush();
-            logger.info(name + " loaded " + coll.getFeatures().size());
+            logger.info(name + " loaded " + coll.getFeatures().size() + " (invalid " + invalid + ")");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

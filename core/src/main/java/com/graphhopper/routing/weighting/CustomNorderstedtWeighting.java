@@ -9,8 +9,10 @@ public class CustomNorderstedtWeighting extends FastestWeighting {
 
     private final double treeFactor;
     private final double litFactor;
+    private final double crashFactor;
     private IntEncodedValue litEnc;
     private IntEncodedValue treeEnc;
+    private IntEncodedValue crashEnc;
 
     public CustomNorderstedtWeighting(FlagEncoder encoder, PMap map) {
         super(encoder, map);
@@ -20,6 +22,9 @@ public class CustomNorderstedtWeighting extends FastestWeighting {
 
         treeEnc = encoder.getIntEncodedValue("tree");
         treeFactor = map.getDouble("tree.factor", 1.2);
+
+        crashEnc = encoder.getIntEncodedValue("crash");
+        crashFactor = map.getDouble("crash.factor", 1.2);
     }
 
     @Override
@@ -36,6 +41,11 @@ public class CustomNorderstedtWeighting extends FastestWeighting {
             weight = weight * treeFactor;
         else
             weight = weight / treeFactor;
+
+        if (edgeState.get(crashEnc) == 0)
+            weight = weight * crashFactor;
+        else
+            weight = weight / crashFactor;
 
         return weight;
     }
