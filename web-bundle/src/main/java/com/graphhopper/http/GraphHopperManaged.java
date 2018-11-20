@@ -20,25 +20,10 @@ package com.graphhopper.http;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.graphhopper.GraphHopper;
-import com.graphhopper.json.geo.JsonFeatureCollection;
-import com.graphhopper.reader.osm.GraphHopperNorderstedt;
-import com.graphhopper.reader.osm.GraphHopperOSM;
-import com.graphhopper.routing.lm.LandmarkStorage;
-import com.graphhopper.routing.util.EncodingManager;
-import com.graphhopper.routing.util.spatialrules.SpatialRuleLookupHelper;
 import com.graphhopper.util.CmdArgs;
-import com.graphhopper.util.Parameters;
-import com.graphhopper.util.shapes.BBox;
 import io.dropwizard.lifecycle.Managed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-
-import static com.graphhopper.util.Helper.UTF_CS;
 
 public class GraphHopperManaged implements Managed {
 
@@ -46,7 +31,7 @@ public class GraphHopperManaged implements Managed {
     private final GraphHopper graphHopper;
 
     public GraphHopperManaged(CmdArgs configuration, ObjectMapper objectMapper) {
-        graphHopper = new GraphHopperNorderstedt();
+        graphHopper = new GraphHopperNorderstedt(configuration);
         graphHopper.init(configuration);
     }
 
