@@ -18,20 +18,34 @@ public class CustomNorderstedtWeighting extends FastestWeighting {
         super(encoder, map);
 
         litEnc = encoder.getIntEncodedValue("lit");
-        litFactor = map.getDouble("lit.factor", 1.2);
+        litFactor = convert(map.getDouble("lit", 2));
 
         treeEnc = encoder.getIntEncodedValue("tree");
-        treeFactor = map.getDouble("tree.factor", 1.2);
+        treeFactor = convert(map.getDouble("tree", 2));
 
         crashEnc = encoder.getIntEncodedValue("crash");
-        crashFactor = map.getDouble("crash.factor", 1.2);
+        crashFactor = convert(map.getDouble("crash", -2));
     }
+
+    double convert(double val) {
+        val = Math.min(10, Math.max(-10, val));
+        return 1 + val / 10;
+    }
+
+    double max = 0;
 
     @Override
     public double calcWeight(EdgeIteratorState edgeState, boolean reverse, int prevOrNextEdgeId) {
         double weight = super.calcWeight(edgeState, reverse, prevOrNextEdgeId);
 
         // TODO take into account: count/distance and combine with factor
+        // crash density is between 0.01 and 0.15  => 1
+        // lit density is between 0.1 and 0.4      => 2
+        // tree density is between 0.1 and 1.3     => 6
+//        double density = edgeState.get(crashEnc) / edgeState.getDistance();
+//        if (density > max)
+//            max = density;
+
         if (edgeState.get(litEnc) == 0)
             weight = weight * litFactor;
         else
