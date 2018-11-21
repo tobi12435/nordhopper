@@ -135,7 +135,16 @@ function initMap(bounds, setStartCoord, setIntermediateCoord, setEndCoord, selec
 
     new L.Control.loading().addTo(map);
 
-    L.control.layers(tileLayers.getAvailableTileLayers()/*, overlays*/).addTo(map);
+
+    L.control.layers(tileLayers.getAvailableTileLayers(), {
+                "Wetter": L.OWM.clouds({
+                    appId: "5c516a2b7847684692f6c6d78b470cbe",
+                    markerFunction: function(data) { return L.marker([data.coord.lat, data.coord.lon]); },
+                    popupFunction: function(data) { return L.popup().setContent(data.name); }
+                })
+            }
+        ).addTo(map);
+
 
     map.on('baselayerchange', function (a) {
         if (a.name) {
