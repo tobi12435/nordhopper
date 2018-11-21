@@ -1,6 +1,6 @@
 # Customized Routing Solution for Norderstedt
 
-Berechnet sicheren Schulweg!
+Berechnet den sicheren Schulweg!
 
 ## GraphHopper Routing Engine
 
