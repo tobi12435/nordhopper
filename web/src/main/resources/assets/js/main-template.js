@@ -326,7 +326,7 @@ function checkInput() {
         var div = $('#locationpoints > div.pointDiv').eq(i);
         // console.log(div.length + ", index:" + i + ", len:" + len);
         if (div.length === 0) {
-            $('#locationpoints > div.pointAdd').before(translate.nanoTemplate(template, {id: i}));
+            $('#locationpoints > div.school_selection').before(translate.nanoTemplate(template, {id: i}));
             div = $('#locationpoints > div.pointDiv').eq(i);
         }
 
