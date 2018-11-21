@@ -9,21 +9,31 @@ By default it uses OpenStreetMap and GTFS data, but it can import other data sou
 
 See [this website](https://github.com/graphhopper/graphhopper) more information
 
-# Commits
+# Data
 
-Alle commits vor dem 20.11.2018 sind bzgl. der generischen Open Source
-Routing Engine, inkl. des merge-commits "Merge branch 'refactor_enc_manager' into
-nordhopper", was nur das customizen vereinfacht. 
-Dann am 20.11.2018 und später kommen Norderstedt spezifische Arbeiten die
-für die Anpassungen notwendig sind um den besten Schulweg zu finden.
+ * street data from OpenStreetMap
+ * tree and lit data from [Norderstedt](https://github.com/hackerstolz/smart-country-hacks-challenges/tree/master/cities/norderstedt)
+ * crash data from [Unfallatlas](https://unfallatlas.statistikportal.de/_opendata.html)
+ 
+Integrating new data should be simple as long as it is in GeoJSON.
 
 # Installation
 
 ```
 git clone https://github.com/karussell/nordhopper/
 cd nordhopper
+# currently only the test branch works out of the box
+git checkout test
 mvn clean install -DskipTests=true
 java -Xms1g -Xmx1g -Dgraphhopper.datareader.file=data/norderstedt.osm.gz -Dgraphhopper.graph.location=graph-cache -Dgraphhopper.lit.location=data/Lampen_Convert.json -Dgraphhopper.tree.location=data/c07_Baeume_convert.json -Dgraphhopper.crash.location=data/unfall.json -jar web/target/graphhopper-web-0.12-SNAPSHOT.jar server config-example.yml
 ```
+
+Append the following to the UI
+
+```
+&debug=true&details=crash&instructions=false
+```
+
+to show the crash data via the PathDetails, see [this commit](https://github.com/karussell/nordhopper/commit/ab841e659868045d1033ebc4699cf2d1180fb4ac) that makes this possible.
 
 Get fresh map data from OpenStreetMap, e.g. download [the PBF file here](http://download.geofabrik.de/europe/germany/schleswig-holstein.html).
