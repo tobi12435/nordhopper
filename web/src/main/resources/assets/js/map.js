@@ -135,27 +135,15 @@ function initMap(bounds, setStartCoord, setIntermediateCoord, setEndCoord, selec
 
     new L.Control.loading().addTo(map);
 
-    var appId = "5c516a2b7847684692f6c6d78b470cbe";
+
     L.control.layers(tileLayers.getAvailableTileLayers(), {
                 "Wetter": L.OWM.clouds({
-                    appId: appId,
+                    appId: "5c516a2b7847684692f6c6d78b470cbe",
                     markerFunction: function(data) { return L.marker([data.coord.lat, data.coord.lon]); },
                     popupFunction: function(data) { return L.popup().setContent(data.name); }
                 })
             }
         ).addTo(map);
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-        {
-            var parser = new DOMParser();
-            var doc = parser.parseFromString(xmlHttp.responseText, "text/html");
-            var coords = doc.getElementsByTagName("coord");
-            $("#weather").append("Wetter<br/><br/>" + coords);
-        }
-    }
-    xmlHttp.open("GET", "https://api.openweathermap.org/data/2.5/weather?lat=53.724139&lon=9.975586&appid=" + appId, true); // true for asynchronous
-    xmlHttp.send(null);
 
 
     map.on('baselayerchange', function (a) {
