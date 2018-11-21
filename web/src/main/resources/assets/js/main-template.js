@@ -347,7 +347,7 @@ function checkInput() {
             if (i === 0)
                 $(input).attr("placeholder", translate.tr("from_hint"));
             else if (i === (len - 1))
-                $(input).attr("placeholder", translate.tr("to_hint"));
+                $(input).val($('#school_selection option:selected').val());
             else
                 $(input).attr("placeholder", translate.tr("via_hint"));
         }
