@@ -93,6 +93,16 @@ $(document).ready(function (e) {
         mySubmit();
     });
 
+    $("#crash_slider").on("change", function() {
+        mySubmit();
+    });
+    $("#lit_slider").on("change", function() {
+        mySubmit();
+    });
+    $("#tree_slider").on("change", function() {
+        mySubmit();
+    });
+
     var urlParams = urlTools.parseUrlWithHisto();
     $.when(ghRequest.fetchTranslationMap(urlParams.locale), ghRequest.getInfo())
             .then(function (arg1, arg2) {
@@ -533,11 +543,15 @@ function routeLatLng(request, doQuery) {
     $("button#" + request.getVehicle().toLowerCase()).addClass("selectvehicle");
 
     var crash = $('#crash_slider').val();
-        var lit = $('#lit_slider').val();
-        var tree = $('#tree_slider').val();
-        request.api_params.crash = crash;
-        request.api_params.lit = lit;
-        request.api_params.tree = tree;
+    var lit = $('#lit_slider').val();
+    var tree = $('#tree_slider').val();
+    $('#crash_slider').attr("title", crash);
+    $('#lit_slider').attr("title", lit);
+    $('#tree_slider').attr("title", tree);
+
+    request.api_params.crash = crash;
+    request.api_params.lit = lit;
+    request.api_params.tree = tree;
 
     var urlForAPI = request.createURL();
     routeResultsDiv.html('<img src="img/indicator.gif"/> Search Route ...');

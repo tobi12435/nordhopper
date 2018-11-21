@@ -37,7 +37,7 @@ var GHRequest = function (host, api_key) {
     this.do_zoom = true;
     this.useMiles = false;
     this.dataType = "json";
-    this.api_params = {"locale": "en", "vehicle": "car", "weighting": "fastest", "elevation": false,
+    this.api_params = {"locale": "en", "vehicle": "car", "weighting": "norderstedt", "elevation": false,
         "key": api_key, "pt": {}};
 
     // register events
