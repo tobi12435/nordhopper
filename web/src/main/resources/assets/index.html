@@ -83,10 +83,16 @@ Grundschule Pellwormstraße;53.711469;9.983199
                         <option name="Pellwormstraße" value="53.711469,9.983199">Grundschule Pellwormstraße</option>
                     </select>
                 </div>
-                <input type="range" min="-10" max="10" value="-2" class="slider" id="crash_slider"/>
-                <input type="range" min="-10" max="10" value="2" class="slider" id="lit_slider"/>
-                <input type="range" min="-10" max="10" value="2" class="slider" id="tree_slider"/>
-                <div id="x_pointAdd" class="pointAdd"><img src="img/point_add.png"/></div>
+                <div class="sliders">
+                    <label class="slider_label" for="crash_slider">Unfälle</label>
+                    <input type="range" min="-10" max="10" value="-2,9" class="slider" id="crash_slider" multiple/>
+                    <label class="slider_label" for="lit_slider">Lampen</label>
+                    <input type="range" min="-10" max="10" value="2" class="slider" id="lit_slider"/>
+                    <label class="slider_label" for="tree_slider">Bäume</label>
+                    <input type="range" min="-10" max="10" value="2" class="slider" id="tree_slider"/>
+                    <div id="x_pointAdd" class="pointAdd"><img src="img/point_add.png"/></div>
+                </div>
+                <div class="clear"></div>
             </div>
 
             <div class="clear"></div>
@@ -101,7 +107,7 @@ Grundschule Pellwormstraße;53.711469;9.983199
     </div>
     <div id="error" class="error">
     </div>
-    <div id="weather"></div>
+
     <div id="footer">
         <div id="link_line">
             <form id="donate_form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">

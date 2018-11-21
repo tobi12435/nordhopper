@@ -109,6 +109,20 @@ body {
     padding-top: 20px;
     color: #666666
 }
+
+#school_selection {
+   width: 170px;
+   padding-bottom: 5px;
+}
+#locationpoints #crash_slider, #locationpoints #lit_slider, #locationpoints #tree_slider{
+    margin-right: 20px;
+    float: right;
+    width: 170px;
+}
+.slider_label {
+    min-width: 100px;
+}
+
 #locationpoints {
     padding-bottom: 10px;
     float: left;
@@ -234,6 +248,7 @@ tr.instruction {
 }
 
 .instructions {
+    /*visibility:hidden;*/
     table-layout:fixed;
     border-collapse: collapse;
     padding-top: 10px;
