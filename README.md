@@ -15,7 +15,7 @@ See [this website](https://github.com/graphhopper/graphhopper) more information
  * tree and lit data from [Norderstedt](https://github.com/hackerstolz/smart-country-hacks-challenges/tree/master/cities/norderstedt)
  * crash data from [Unfallatlas](https://unfallatlas.statistikportal.de/_opendata.html)
  
-Integrating new data should be simple as long as it is in GeoJSON.
+Integrating new data should be simple as long as it is in GeoJSON. See [this commit](https://github.com/karussell/nordhopper/commit/b4c1592ed5dce0ecc26c56a514a5e4e8613cfc9d) that shows integration for the crash data.
 
 # Installation
 
