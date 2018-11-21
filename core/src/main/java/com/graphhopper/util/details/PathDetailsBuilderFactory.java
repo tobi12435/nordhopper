@@ -50,6 +50,9 @@ public class PathDetailsBuilderFactory {
         if (requestedPathDetails.contains(DISTANCE))
             builders.add(new DistanceDetails());
 
+        if (requestedPathDetails.contains(CRASH))
+            builders.add(new CrashDetails(encoder.getIntEncodedValue("crash")));
+
         if (requestedPathDetails.size() != builders.size()) {
             throw new IllegalArgumentException("You requested the details " + requestedPathDetails + " but we could only find " + builders);
         }
