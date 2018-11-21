@@ -248,6 +248,7 @@ tr.instruction {
 }
 
 .instructions {
+    /*visibility:hidden;*/
     table-layout:fixed;
     border-collapse: collapse;
     padding-top: 10px;
