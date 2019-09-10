@@ -40,11 +40,11 @@
     <body>
         <div id="input">
             <div id="input_header">
-                <div id="header_img">
-                    <a class="no_link" href="https://graphhopper.com">
-                        <img alt="Norderbärdt" src="img/norderstedt-logo.png"/>
-                    </a>
+                <!-- Norderstedt Anforderung: Logo weg. But maybe they like the shield?-->
+                <div id="header_img">                    
+                    <img alt="Norderstedt" src="img/Wappen_Norderstedt.png"/>                   
                 </div>
+                
 <!--
 Grundschule Falkenberg;53.699902;10.009855
 Grundschule Friedrichsgabe;53.731446;9.995544
@@ -85,12 +85,16 @@ Grundschule Pellwormstraße;53.711469;9.983199
                 </div>
                 <div class="sliders">
                     <label class="slider_label" for="crash_slider">Unfälle</label>
-                    <input type="range" min="-10" max="10" value="-8" class="slider" id="crash_slider" multiple/>
+                    <input type="range" min="0" max="100" value="50" class="slider" id="crash_slider" multiple/>
                     <label class="slider_label" for="lit_slider">Lampen</label>
-                    <input type="range" min="-10" max="10" value="2" class="slider" id="lit_slider"/>
+                    <input type="range" min="0" max="100" value="50" class="slider" id="lit_slider"/>
                     <label class="slider_label" for="tree_slider">Bäume</label>
-                    <input type="range" min="-10" max="10" value="2" class="slider" id="tree_slider"/>
+                    <input type="range" min="0" max="100" value="50" class="slider" id="tree_slider"/>
+                    <label class="slider_label" for="buildingsite_slider">Baustellen</label>
+                    <input type="range" min="0" max="100" value="50" class="slider" id="buildingsite_slider"/>
+                    <!--
                     <div id="x_pointAdd" class="pointAdd"><img src="img/point_add.png"/></div>
+                    -->
                 </div>
                 <div class="clear"></div>
             </div>
