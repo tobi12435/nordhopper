@@ -33,7 +33,7 @@
         <link rel="stylesheet" href="css/leaflet.loading.css?v=0.1.24" />
         <link rel="stylesheet" href="css/ui-lightness/jquery-ui.min.css" />
         <link rel="stylesheet" href="css/flatpickr.min.css?v=4.4.6">
-        <script type="text/javascript" src="js/main.js?v=0.12.0"></script>
+        <script type="text/javascript" src="js/main.js?v=0.13.0"></script>
         <script type="text/javascript" src="js/lib/leaflet-openweathermap.js"></script>
         <link rel="stylesheet" type="text/css" href="css/style.css" />
     </head>
@@ -70,7 +70,7 @@ Grundschule Pellwormstraße;53.711469;9.983199
             </div>
             <div id="locationpoints">
                 <div id="school_selection" class="school_selection">
-                    <select name="schulen" onchange="form.submit()">
+                    <select name="schulen">
                         <option name="Falkenberg" value="53.699902,10.009855">Grundschule Falkenberg</option>
                         <option name="Friedrichsgabe" value="53.731446,9.995544">Grundschule Friedrichsgabe</option>
                         <option name="Glashütte" value="53.693539,10.034382">Grundschule Glashütte</option>
@@ -107,7 +107,7 @@ Grundschule Pellwormstraße;53.711469;9.983199
     </div>
     <div id="error" class="error">
     </div>
-
+    <div id="weather"></div>
     <div id="footer">
         <div id="link_line">
             <form id="donate_form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">

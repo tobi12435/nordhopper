@@ -145,6 +145,20 @@ function initMap(bounds, setStartCoord, setIntermediateCoord, setEndCoord, selec
             }
         ).addTo(map);
 
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+        {
+            var parser=new DOMParser();
+            var xmlDoc=parser.parseFromString(xmlHttp.responseText,"text/xml");
+            var temp = xmlDoc.getElementsByTagName("temp")[0];
+            // alert(temp);
+            $("#weather").append(temp)
+        }
+    }
+    xmlHttp.open("GET", "https://api.openweathermap.org/data/2.5/weather?lat=53.724139&lon=9.975586&appid=5c516a2b7847684692f6c6d78b470cbe", true); // true for asynchronous
+    xmlHttp.send(null);
+
 
     map.on('baselayerchange', function (a) {
         if (a.name) {
