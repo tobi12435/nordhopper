@@ -121,7 +121,8 @@ body {
 }
 .slider_label {
     min-width: 100px;
-    float: left
+    float: left;
+    font-size: 13pt
 }
 
 #locationpoints {
