@@ -28,8 +28,11 @@ public class CustomNorderstedtWeighting extends FastestWeighting {
     }
 
     double convert(double val) {
-        val = Math.min(10, Math.max(-10, val));
-        return 1 + val / 10;
+        //val = Math.min(10, Math.max(-10, val));
+        //return 1 + val / 10;
+        // Sliders go from 0 to 100 now...
+        val = Math.min(100, Math.max(0, val));
+        return val / 50;
     }
 
     double max = 0;
