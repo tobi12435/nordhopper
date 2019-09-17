@@ -45339,7 +45339,7 @@ var translate = require('./translate.js');
 var routingLayer;
 var map;
 var menuStart;
-var menuIntermediate;
+// var menuIntermediate;
 var menuEnd;
 var elevationControl = null;
 var fullscreenControl = null;
@@ -45435,7 +45435,7 @@ function initMap(bounds, setStartCoord, setIntermediateCoord, setEndCoord, selec
         index: 2
     };
     menuStart = map.contextmenu.insertItem(_startItem, _startItem.index);
-    menuIntermediate = map.contextmenu.insertItem(_intItem, _intItem.index);
+    // menuIntermediate = map.contextmenu.insertItem(_intItem, _intItem.index);
     menuEnd = map.contextmenu.insertItem(_endItem, _endItem.index);
 
     var zoomControl = new L.Control.Zoom({
@@ -45601,8 +45601,8 @@ module.exports.setDisabledForMapsContextMenu = function (entry, value) {
         map.contextmenu.setDisabled(menuStart, value);
     if (entry === 'end')
         map.contextmenu.setDisabled(menuEnd, value);
-    if (entry === 'intermediate')
-        map.contextmenu.setDisabled(menuIntermediate, value);
+   // if (entry === 'intermediate')
+        //map.contextmenu.setDisabled(menuIntermediate, value);
 };
 
 module.exports.fitMapToBounds = function (bounds) {
