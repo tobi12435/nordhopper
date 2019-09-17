@@ -48,7 +48,16 @@ public class CustomNorderstedtWeighting extends FastestWeighting {
 //        double density = edgeState.get(crashEnc) / edgeState.getDistance();
 //        if (density > max)
 //            max = density;
+        double length = edgeState.getDistance();
+        double litDensity = edgeState.get(litEnc) / length;
+        double treeDensity = edgeState.get(treeEnc) / length;
+        double crashDensity = edgeState.get(crashEnc) / length;
 
+        weight *= (1 + 100.0 * crashDensity * crashFactor);
+        weight *= (1 + 10.0 * treeDensity * treeFactor);
+        weight /= (1 + 20.0 * litDensity * litFactor);
+
+/*
         if (edgeState.get(litEnc) == 0)
             weight = weight * litFactor;
         else
@@ -63,6 +72,7 @@ public class CustomNorderstedtWeighting extends FastestWeighting {
             weight = weight * crashFactor;
         else
             weight = weight / crashFactor;
+            */
 
         return weight;
     }
