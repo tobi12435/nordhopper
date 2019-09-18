@@ -26,10 +26,12 @@ import java.io.IOException;
 public class GraphHopperNorderstedt extends GraphHopperOSM {
 
     private final String litLocation;
+    private final String siteLocation;
     private final String treeLocation;
     private final String crashLocation;
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final IntEncodedValue litEnc;
+    private final IntEncodedValue siteEnc;
     private final IntEncodedValue treeEnc;
     private final IntEncodedValue crashEnc;
     private final ObjectMapper mapper = Jackson.newObjectMapper();
@@ -38,11 +40,13 @@ public class GraphHopperNorderstedt extends GraphHopperOSM {
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         litLocation = args.get("lit.location", "");
+        siteLocation = args.get("site.location", "");
         treeLocation = args.get("tree.location", "");
         crashLocation = args.get("crash.location", "");
         EncodingManager.Builder builder = new EncodingManager.Builder(8);
         builder.add(treeEnc = new IntEncodedValue("tree", 9, 0, false));
         builder.add(litEnc = new IntEncodedValue("lit", 6, 0, false));
+        builder.add(siteEnc = new IntEncodedValue("site", 6, 0, false));
         builder.add(crashEnc = new IntEncodedValue("crash", 6, 0, false));
         builder.add(new FootFlagEncoder());
         builder.add(new BikeFlagEncoder());
@@ -65,6 +69,7 @@ public class GraphHopperNorderstedt extends GraphHopperOSM {
         importFile("crashes", new File(crashLocation), crashEnc);
         importFile("trees", new File(treeLocation), treeEnc);
         importFile("lits", new File(litLocation), litEnc);
+        importFile("sites", new File(siteLocation), siteEnc);
 
         // skip for now super.postProcessing();
     }

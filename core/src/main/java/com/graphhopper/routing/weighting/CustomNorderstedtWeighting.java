@@ -10,21 +10,26 @@ public class CustomNorderstedtWeighting extends FastestWeighting {
     private final double treeFactor;
     private final double litFactor;
     private final double crashFactor;
+    private final double siteFactor;
     private IntEncodedValue litEnc;
     private IntEncodedValue treeEnc;
     private IntEncodedValue crashEnc;
+    private IntEncodedValue siteEnc;
 
     public CustomNorderstedtWeighting(FlagEncoder encoder, PMap map) {
         super(encoder, map);
 
         litEnc = encoder.getIntEncodedValue("lit");
-        litFactor = convert(map.getDouble("lit", 2));
+        litFactor = convert(map.getDouble("lit", 1));
 
         treeEnc = encoder.getIntEncodedValue("tree");
-        treeFactor = convert(map.getDouble("tree", 2));
+        treeFactor = convert(map.getDouble("tree", 1));
 
         crashEnc = encoder.getIntEncodedValue("crash");
-        crashFactor = convert(map.getDouble("crash", -2));
+        crashFactor = convert(map.getDouble("crash", 1));
+
+        siteEnc = encoder.getIntEncodedValue("site");
+        siteFactor = convert(map.getDouble("site", 1));
     }
 
     double convert(double val) {
@@ -52,9 +57,11 @@ public class CustomNorderstedtWeighting extends FastestWeighting {
         double litDensity = edgeState.get(litEnc) / length;
         double treeDensity = edgeState.get(treeEnc) / length;
         double crashDensity = edgeState.get(crashEnc) / length;
+        double siteDensity = edgeState.get(siteEnc) / length;
 
         weight *= (1 + 100.0 * crashDensity * crashFactor);
         weight *= (1 + 10.0 * treeDensity * treeFactor);
+        weight *= (1 + 100.0 * siteDensity * siteFactor);
         weight /= (1 + 20.0 * litDensity * litFactor);
 
 /*
