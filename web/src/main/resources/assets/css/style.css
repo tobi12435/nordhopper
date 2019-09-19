@@ -116,13 +116,19 @@ body {
 }
 #locationpoints #crash_slider, #locationpoints #lit_slider, #locationpoints #tree_slider, #locationpoints #site_slider{
     margin-right: 20px;
+    margin-top: 3px;
+    margin-bottom: 3px;
     float: right;
     width: 170px;
+    height: 20px;
 }
 .slider_label {
-    min-width: 100px;
+    width: 75px;
+    height: 20px;
     float: left;
-    font-size: 13pt
+    font-size: 13pt;
+    margin-top: 3px;
+    margin-bottom: 3px;
 }
 
 #locationpoints {

@@ -44615,6 +44615,8 @@ $(document).ready(function (e) {
     $('#school_selection').change(function()
     {
       checkInput();
+      mySubmit();
+
     });
 
     $("#crash_slider").on("change", function() {
