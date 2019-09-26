@@ -1,3 +1,29 @@
+function fillSchoolOptions()
+{
+    var schoolselector = document.getElementById("schoolselector");
+    // Make it empty just in case..
+    while(schoolselector.hasChildNodes()) 
+    {
+	schoolselector.removeChild(schoolselector.firstChild);
+    }
+
+
+    $.getJSON("schoollist.json", function(data) {
+	if(data != null) {
+	for(i = 0; i < data.schools.length; i++)
+	{
+	    var opt = document.createElement("option");
+	    opt.setAttribute("name", data.schools[i].name);
+	    opt.setAttribute("value", data.schools[i].value);
+	    var t = document.createTextNode(data.schools[i].text);
+	    opt.appendChild(t);
+	    schoolselector.appendChild(opt);
+	}
+	}
+
+    });
+}
+
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 !function() {
   var d3 = {
@@ -44612,6 +44638,8 @@ $(document).ready(function (e) {
         mySubmit();
     });
 
+    fillSchoolOptions();
+
     $('#school_selection').change(function()
     {
       checkInput();
@@ -44631,6 +44659,7 @@ $(document).ready(function (e) {
     $("#site_slider").on("change", function() {
       mySubmit();
   });
+
 
     var urlParams = urlTools.parseUrlWithHisto();
     $.when(ghRequest.fetchTranslationMap(urlParams.locale), ghRequest.getInfo())
@@ -44744,6 +44773,11 @@ $(document).ready(function (e) {
     $(window).resize(function () {
         mapLayer.adjustMapSize();
     });
+
+    
+
+
+
     $("#locationpoints").sortable({
         items: ".pointDiv",
         cursor: "n-resize",
@@ -45339,7 +45373,13 @@ module.exports.setFlag = setFlag;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"./autocomplete.js":9,"./config/options.js":10,"./config/tileLayers.js":11,"./gpxexport.js":12,"./graphhopper/GHInput.js":13,"./graphhopper/GHRequest.js":14,"./instructions.js":17,"./lib/jquery-ui-custom-1.12.0.min.js":18,"./lib/jquery.autocomplete.js":19,"./lib/jquery.history.js":20,"./lib/leaflet.elevation-0.0.4.min.js":21,"./lib/leaflet_numbered_markers.js":22,"./map.js":24,"./messages.js":25,"./nominatim.js":26,"./routeManipulation.js":27,"./tools/format.js":28,"./tools/url.js":30,"./tools/vehicle.js":31,"./translate.js":32,"d3":1,"flatpickr":2,"flatpickr/dist/l10n":3,"jquery":4,"leaflet":7,"leaflet-contextmenu":5,"leaflet-loading":6,"moment":8}],24:[function(require,module,exports){
+},{"./autocomplete.js":9,"./config/options.js":10,"./config/tileLayers.js":11,"./gpxexport.js":12,"./graphhopper/GHInput.js":13,"./graphhopper/GHRequest.js":14,"./instructions.js":17,"./lib/jquery-ui-custom-1.12.0.min.js":18,"./lib/jquery.autocomplete.js":19,"./lib/jquery.history.js":20,"./lib/leaflet.elevation-0.0.4.min.js":21,"./lib/leaflet_numbered_markers.js":22,"_./map.js": 24,get "./map.js"() {
+    return this["_./map.js"];
+  },
+set "./map.js"(value) {
+    this["_./map.js"] = value;
+  },
+"./messages.js":25,"./nominatim.js":26,"./routeManipulation.js":27,"./tools/format.js":28,"./tools/url.js":30,"./tools/vehicle.js":31,"./translate.js":32,"d3":1,"flatpickr":2,"flatpickr/dist/l10n":3,"jquery":4,"leaflet":7,"leaflet-contextmenu":5,"leaflet-loading":6,"moment":8}],24:[function(require,module,exports){
 var mainTemplate = require('./main-template.js');
 var tileLayers = require('./config/tileLayers.js');
 var translate = require('./translate.js');

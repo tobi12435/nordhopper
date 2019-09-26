@@ -1,0 +1,15 @@
+{
+	"schools": [
+	    {"name": "Falkenberg", "value": "53.699902,10.009855", "text": "Grundschule Falkenberg"},
+	    {"name": "Friedrichsgabe", "value": "53.731446,9.995544", "text": "Grundschule Friedrichsgabe"},
+	    {"name": "Glashütte" , "value": "53.693539,10.034382", "text": "Grundschule Glashütte"},
+	    {"name": "Glashütte-Süd" , "value": "53.683707,10.038777", "text": "Grundschule Glashütte-Süd"},
+	    {"name": "Gottfried-Keller-Straße" , "value": "53.673561,9.982435", "text": "Grundschule Gottfried-Keller-Straße"},
+	    {"name": "Harksheide-Nord" , "value": "53.717110,10.002434", "text": "Grundschule Harksheide-Nord"},
+	    {"name": "Harkshörn" , "value": "53.735594,9.997739", "text": "Grundschule Harkshörn"},
+	    {"name": "Heidberg" , "value": "53.706734,9.991007", "text": "Grundschule Heidberg"},
+	    {"name": "Niendorfer Straße" , "value": "53.677904,9.968890", "text": "Grundschule Niendorfer Straße"},
+	    {"name": "Pellwormstraße" , "value": "53.711469,9.983199", "text": "Grundschule Pellwormstraße"}
+	]
+}
+
