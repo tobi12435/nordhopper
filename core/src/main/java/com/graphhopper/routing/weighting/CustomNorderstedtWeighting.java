@@ -61,8 +61,8 @@ public class CustomNorderstedtWeighting extends FastestWeighting {
 
         weight *= (1 + 100.0 * crashDensity * crashFactor);
         weight *= (1 + 10.0 * treeDensity * treeFactor);
-        weight *= (1 + 100.0 * siteDensity * siteFactor);
         weight /= (1 + 20.0 * litDensity * litFactor);
+        weight *= (1 + 1000.0 * siteDensity * siteFactor);
 
 /*
         if (edgeState.get(litEnc) == 0)

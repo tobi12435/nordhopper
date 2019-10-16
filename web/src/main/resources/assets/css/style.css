@@ -114,21 +114,21 @@ body {
    width: 170px;
    padding-bottom: 5px;
 }
-#locationpoints #crash_slider, #locationpoints #lit_slider, #locationpoints #tree_slider, #locationpoints #site_slider{
-    margin-right: 20px;
-    margin-top: 3px;
+#crash_slider, #lit_slider, #tree_slider, #site_slider{
+    margin-right: 0px;
+    margin-top: 0px;
     margin-bottom: 3px;
-    float: right;
-    width: 170px;
+    float: left;
+    width: 250px;
     height: 20px;
 }
 .slider_label {
-    width: 75px;
+    width: 175px;
     height: 20px;
     float: left;
     font-size: 13pt;
     margin-top: 3px;
-    margin-bottom: 3px;
+    margin-bottom: 0px;
 }
 
 #locationpoints {
