@@ -26,6 +26,6 @@ git clone https://github.com/tobi12435/schoolhoppernorderstedt/
 cd schoolhoppernorderstedt
 git checkout nordhopper
 mvn clean install -DskipTests=true
-java -Xms1g -Xmx1g -Dgraphhopper.datareader.file=data/norderstedt.osm.gz -Dgraphhopper.graph.location=graph-cache -Dgraphhopper.lit.location=data/Lampen_Convert.json -Dgraphhopper.tree.location=data/c07_Baeume_convert.json -Dgraphhopper.crash.location=data/unfall.json --Dgraphhopper.site.location=data/baustellen.json jar web/target/graphhopper-web-0.12-SNAPSHOT.jar server config-example.yml
+java -Xms1g -Xmx1g -Dgraphhopper.datareader.file=data/norderstedt.osm.gz -Dgraphhopper.graph.location=graph-cache -Dgraphhopper.lit.location=data/Lampen_Convert.json -Dgraphhopper.tree.location=data/c07_Baeume_convert.json -Dgraphhopper.crash.location=data/unfall.json -Dgraphhopper.site.location=data/baustellen.json -jar web/target/graphhopper-web-0.12-SNAPSHOT.jar server config-example.yml
 ```
 
